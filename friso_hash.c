@@ -162,7 +162,11 @@ __EXTERN_API__ void free_hash_table( friso_hash_t _hash, uint_t fkey ) {
 		e = *( _hash->table + j );
 		for ( ; e != NULL ; ) {
 			n = e->_next;
-			if ( fkey == 1 ) FRISO_FREE( e->_key );
+			//if ( fkey == 1 ) FRISO_FREE( e->_key );
+			if ( fkey == 1 ) {
+				FRISO_FREE( e->_key );
+				FRISO_FREE( e->_val );
+			}
 			FRISO_FREE( e );
 			e = n;
 		}
