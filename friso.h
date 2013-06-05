@@ -181,7 +181,7 @@ typedef enum {
 typedef struct {
 	string word;
 	int offset;
-	hits_word_t type;
+	hits_word_t wtype;
 } friso_hits_term;
 
 typedef friso_hits_term * friso_hits_t;
