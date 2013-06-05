@@ -183,7 +183,7 @@ __EXTERN_API__ friso_hits_t friso_new_hits( void ) {
 	//initialize
 	hits->word = NULL;
 	hits->offset = -1;
-	hits->type = 0;
+	hits->wtype = 0;
 
 	return hits;
 }
@@ -265,7 +265,7 @@ __STATIC_API__ friso_hits_t next_simple_cjk( friso_t friso, friso_task_t task ) 
 
 	//reset the hits.
 	task->hits->word = e->word;
-	task->hits->type = __FRISO_SYS_WORDS__;
+	task->hits->wtype = __FRISO_SYS_WORDS__;
 
 	return task->hits;
 }
@@ -387,7 +387,7 @@ __STATIC_API__ friso_hits_t next_basic_latin( friso_t friso, friso_task_t task )
 	if ( __convert == 1 ) {
 		free_string_buffer( sb );
 		task->hits->word = e->word;
-		task->hits->type = __FRISO_SYS_WORDS__;
+		task->hits->wtype = __FRISO_SYS_WORDS__;
 	} else {
 		/*
 		 * adjust the string buffer.
@@ -398,7 +398,7 @@ __STATIC_API__ friso_hits_t next_basic_latin( friso_t friso, friso_task_t task )
 		 */
 		//string_buffer_trim( sb );
 		task->hits->word = string_buffer_devote( sb );
-		task->hits->type = __FRISO_NEW_WORDS__;
+		task->hits->wtype = __FRISO_NEW_WORDS__;
 	}
 
 	return task->hits;
@@ -729,7 +729,7 @@ __STATIC_API__ friso_hits_t next_complex_cjk( friso_t friso, friso_task_t task )
 	 */
 	if ( fmatch->length == 1 ) {
 		task->hits->word =  ( ( lex_entry_t ) fmatch->items[0] )->word;
-		task->hits->type = __FRISO_SYS_WORDS__;
+		task->hits->wtype = __FRISO_SYS_WORDS__;
 		free_array_list( fmatch );
 		
 		return task->hits;
@@ -807,7 +807,7 @@ __STATIC_API__ friso_hits_t next_complex_cjk( friso_t friso, friso_task_t task )
 	}
 	fe = ( lex_entry_t ) e->words->items[0];
 	task->hits->word = fe->word;
-	task->hits->type = __FRISO_SYS_WORDS__;
+	task->hits->wtype = __FRISO_SYS_WORDS__;
 	task->idx += fe->length;						//reset the idx of the task.
 	free_chunk( e );
 
@@ -841,7 +841,7 @@ __EXTERN_API__ friso_hits_t friso_next( friso_t friso, friso_mode_t _mode, friso
 
 		task->hits->word = lex->word;
 		task->hits->offset = task->idx;
-		task->hits->type = 				\
+		task->hits->wtype = 				\
 				lex->type ==	__LEX_OTHER_WORDS__  ? __FRISO_NEW_WORDS__ : __FRISO_SYS_WORDS__;
 
 		//free the allocations of the lexicon entry if its type is other words.
