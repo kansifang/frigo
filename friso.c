@@ -889,7 +889,3 @@ __EXTERN_API__ friso_hits_t friso_next( friso_t friso, friso_mode_t _mode, friso
 	
 	return NULL;
 }
-
-__EXTERN_API__ friso_hits_t friso_next2( friso_t friso, friso_task_t task ) {
-	return friso_next(friso, friso->mode, task);
-}

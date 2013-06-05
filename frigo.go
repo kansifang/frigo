@@ -56,7 +56,7 @@ func (f *Frigo) Free() {
 func (f *Frigo) Parse(text string) []string {
 	task := newTask(text)
 	words := make([]string, 0, 1)
-	for ; C.friso_next2(f.friso, task.ft) != nil ; {
+	for ; C.friso_next(f.friso, f.friso.mode, task.ft) != nil ; {
 		word := C.GoString(task.ft.hits.word)
 		words = append(words, word)
 		C.free(unsafe.Pointer(task.ft.hits.word))

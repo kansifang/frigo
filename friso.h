@@ -281,8 +281,5 @@ __EXTERN_API__ void friso_set_text( friso_task_t, string );
 __EXTERN_API__ friso_hits_t friso_next( friso_t, friso_mode_t, friso_task_t );
 /* }}} friso main interface define :: end*/
 
-//use the mode in friso_t
-__EXTERN_API__ friso_hits_t friso_next2( friso_t, friso_task_t );
-
 
 #endif /*end ifndef*/
