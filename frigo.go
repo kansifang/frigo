@@ -1,12 +1,15 @@
 package frigo
 
 /*
+#cgo LDFLAGS: -lm
 #include "friso_API.h"
 #include "friso.h"
 */
 import "C"
 import "unsafe"
 import "runtime"
+import "io/ioutil"
+import "log"
 
 type Frigo struct {
 	friso C.friso_t
@@ -18,6 +21,9 @@ type Task struct {
 }
 
 func NewFrigo(inifile string) *Frigo {
+	if _, err := ioutil.ReadFile(inifile); err != nil {
+		log.Fatalf("cannot open file: %s\n", inifile)
+	}
 	f := &Frigo{}
 	fname := C.CString(inifile)
 	defer C.free(unsafe.Pointer(fname))
@@ -27,7 +33,6 @@ func NewFrigo(inifile string) *Frigo {
 }
 
 func (f *Frigo) Free() {
-	println("frigo freed")
 	if f.friso != nil {
 		C.friso_free(f.friso)
 		f.friso = nil
@@ -43,7 +48,6 @@ func (f *Frigo) NewTask() *Task {
 }
 
 func (t *Task) Free() {
-	println("task freed")
 	if t.ft != nil {
 		C.friso_free_task(t.ft)
 		t.ft = nil
