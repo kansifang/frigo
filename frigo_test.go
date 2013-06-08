@@ -18,9 +18,6 @@ func Test2(t *testing.T) {
 	for _, word := range(words) {
 		println(word)
 	}
-	if len(words) != 4 {
-		t.Errorf("# of words does not match\n")
-	}
 }
 
 func TestMemory(t *testing.T) {
